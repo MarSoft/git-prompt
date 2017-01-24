@@ -648,7 +648,7 @@ parse_virtualenv_status() {
 
     if [[ -n "$VIRTUAL_ENV" ]] ; then
 	virtualenv=`basename $VIRTUAL_ENV`
-	rc="$rc $virtualenv_color<$virtualenv> "
+	rc="$rc$virtualenv_color<$virtualenv> "
     fi
  }
 
