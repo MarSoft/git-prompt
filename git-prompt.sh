@@ -418,7 +418,17 @@ parse_git_status() {
 
         # TODO add status: LOCKED (.git/index.lock)
 
-        git_dir=`[[ $git_module = "on" ]]  &&  git rev-parse --git-dir 2> /dev/null`
+        unset git_dir
+        for dir in .git ../.git ../../.git ../../../.git ../../../../.git ../../../../../.git ../../../../../../.git; do
+                if [ -e $dir ]; then
+                        git_dir=$dir
+                        break
+                fi
+        done
+        unset dir
+        [ -n "$git_dir" ] || return 1
+
+        #git_dir=`[[ $git_module = "on" ]]  &&  git rev-parse --git-dir 2> /dev/null`
         #git_dir=`eval \$$git_module  git rev-parse --git-dir 2> /dev/null`
         #git_dir=` git rev-parse --git-dir 2> /dev/null`
 
